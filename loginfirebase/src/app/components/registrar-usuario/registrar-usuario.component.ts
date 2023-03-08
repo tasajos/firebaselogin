@@ -24,7 +24,10 @@ ngOnInit(): void {
 }
 
 registrarform (){
-  console.log(this.registrarUsuario)
+  const email = this.registrarUsuario.value.email;
+  const password = this.registrarUsuario.value.password;
+  const repetirpassword = this.registrarUsuario.value.repetirpassword;
+  console.log(email,password,repetirpassword)
 }
 
 
