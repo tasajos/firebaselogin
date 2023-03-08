@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit{
 
   loginUsuario : FormGroup;
+  loading:boolean =false;
   
   constructor (private fb: FormBuilder,
     private afAuth: AngularFireAuth,
@@ -32,12 +33,14 @@ export class LoginComponent implements OnInit{
   loginS (){
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
+    this.loading=true;
 
     this.afAuth.signInWithEmailAndPassword(email,password).then ((user) => {
 
       console.log(user);
       this.router.navigate (['/dashboard']);
     }).catch ((error) => {
+      this.loading=false;
       console.log(error);
     })
     
