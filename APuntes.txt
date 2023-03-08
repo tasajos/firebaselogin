@@ -2,3 +2,4 @@ Angular + firebase + bootstrap
 
 //comando firebase
 npm i --save firebase @angular/fire
+install tosr
