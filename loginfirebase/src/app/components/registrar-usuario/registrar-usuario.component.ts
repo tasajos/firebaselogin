@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router, UrlSerializer } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -17,6 +18,7 @@ export class RegistrarUsuarioComponent implements OnInit{
     private afAuth: AngularFireAuth,
     private toastr: ToastrService,
     private router: Router,
+    private FirebaseError: FirebaseServiceService,
     
     ){
 this,this.registrarUsuario = this.fb.group({
@@ -52,23 +54,13 @@ console.log (user);
     console.log(error);
     //this.toastr.error(this.firebaseError(error.code),'Error')
     this.loading=false;
-    alert(this.firebaseError(error.code))
+    alert(this.FirebaseError.CodeError(error.code))
   })
   }
 
-  firebaseError(code:string){
-switch(code){
-  case 'auth/email-already-in-use':
-    return 'El usuario ya existe'
-  case 'auth/weak-password':
-    return 'La contraseña es muy debil'
- case 'auth/invalid-email':
-    return 'Correo Invalido'
-  default:
-    return 'Error desconocido'
-}
+  
 
-  }
+  
 
 }
 

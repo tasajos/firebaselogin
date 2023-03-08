@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FirebaseServiceService } from 'src/app/services/firebase-service.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit{
     private afAuth: AngularFireAuth,
     private toastr: ToastrService,
     private router: Router,
+    private FirebaseError: FirebaseServiceService,
     )
         {
           this.loginUsuario = this.fb.group({
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit{
       this.router.navigate (['/dashboard']);
     }).catch ((error) => {
       this.loading=false;
+      alert(this.FirebaseError.CodeError(error.code))
       console.log(error);
     })
     
