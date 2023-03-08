@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UrlSerializer } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -10,7 +12,8 @@ export class RegistrarUsuarioComponent implements OnInit{
 
   registrarUsuario: FormGroup;
 
-  constructor (private fb: FormBuilder){
+  constructor (private fb: FormBuilder,
+    private afAuth: AngularFireAuth ){
 this,this.registrarUsuario = this.fb.group({
   email:['', Validators.required],
   password:['',Validators.required],
@@ -27,9 +30,17 @@ registrarform (){
   const email = this.registrarUsuario.value.email;
   const password = this.registrarUsuario.value.password;
   const repetirpassword = this.registrarUsuario.value.repetirpassword;
-  console.log(email,password,repetirpassword)
+  
+  this.afAuth.createUserWithEmailAndPassword(email,password).then((user) => {
+console.log (user);
+  }).catch((error) => {
+
+    console.log(error);
+  })
+  }
+
 }
 
 
 
-}
+
